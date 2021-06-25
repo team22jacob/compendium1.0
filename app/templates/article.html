@@ -1,0 +1,17 @@
+{% extends "_layouts/_base.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block body %}
+<div class="backlinks-container">
+    <h3>Backlinks</h3>
+    <div class="backlinks">
+    {% for backlink in backlinks %}
+        <div class="backlink"><a href="{{backlink}}">{{backlink}}</a></div>
+    {% endfor %}
+    </div>
+</div>
+{{document|safe}}
+{% endblock %}

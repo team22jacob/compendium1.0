@@ -1,0 +1,489 @@
+@import "bootstrap";
+
+// Include responsive Bootstrap styles
+// @import "bootstrap-responsive";
+
+$color-foreground: $gray-darker;  // Google black
+$color-foreground-weak: $gray-dark;
+$color-foreground-weakest: $gray;
+
+$color-background-strongest: #fbfbfb;
+$color-background-strong: #fefefe;
+$color-background: #fff;
+
+// Also considered Wikipedia's ``1px solid #aaa``, but found it caused too much
+// contrast.
+$border-weak: 1px solid rgba(0, 0, 0, 0.1);
+$border-strong: 1px solid #c6c6c6; // alt: 1px solid #d9d9d9;
+
+// 29em is based on an desire to use an 18px font with 66 CPL.
+// http://www.pearsonified.com/typography/
+// 34em is used because 29 em is too short for 80 CPL in literal blocks.
+$document-max-width: 34em; // 40em based on AListApart
+// $document-max-width: 60.625em; // 970px
+$panel-width: 35%;
+$font-family: "Times New Roman";
+$font-size: 18px;
+$font-size-weak: 0.875em;
+$h1-font-size: 2.6em;
+$line-height: 1.5em; // 1em + (2em / 3);
+$margin-bottom-flow-content: 0.625em;
+
+// The width of a general-purpose space, determined empirically.
+$width-space: 0.3em;
+
+$caption-font-size: $font-size;
+
+// Lists with less than 10 items look good at 4/3em. Lists with 10 or items
+// require a second character to label, breaking the left boundary. We add
+// 2/3em for the second character (somewhat arbitrarily-- 1em is too much),
+// assuming no list will be longer than 99 elements.
+$list-padding-left: 2em;
+
+$figure-margin-horizontal: -50%;
+$document-margin-left: $figure-margin-horizontal / -4;
+
+
+$tt-font-size: 17px;
+
+@font-face {
+     font-family: Consolas;
+     src: url('../fonts/consolas.ttf');
+}
+
+// Links should not be styled in such a way that they make reading
+// difficult,but it also needs to be clear they are in fact links.
+a, a:hover {
+    color: $color-foreground;
+    text-decoration: underline;
+}
+
+blockquote, dd, dl, h1, h2, h3, h4, h5, ol, p, table, ul, p + img, .contents, .figure, .formula, .literal-block, .note, .warning {
+     margin-bottom: $margin-bottom-flow-content;
+}
+
+blockquote {
+    font-size: 1em;
+     padding: 0;
+     padding-left: 6%; // Roughly 4 / 66 CPL
+     padding-left: 1em;
+}
+
+body {
+     color: $color-foreground;
+     font-family: $font-family;
+     font-size: $font-size;
+     line-height: $line-height;
+}
+
+body {
+    display: flex;
+}
+
+button {
+     background-color: $color-background-strongest;
+     border: $border-weak;
+     color: $color-foreground-weakest;
+     font-family: arial; // Google
+     font-size: 11px;
+     font-weight: bold;
+     height: 29px;
+     line-height: 100%;
+     margin: 11px 6px;
+     padding: 0 8px;
+     text-align: center;
+
+     &:hover {
+          background-color: $color-background-strong;
+          border: $border-strong;
+          color: $color-foreground-weak;
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+     }
+}
+
+cite {
+    text-decoration: underline;
+}
+
+dd {
+    margin-left: 1em;
+}
+
+form {
+    display: block;
+    margin: 0 auto;
+    max-width: 833px;
+    padding-bottom: 14px;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-top: 1em;
+    padding-bottom: 0.25em;
+
+    > a {
+         text-decoration: none;
+    }
+}
+
+h1 {
+    border-bottom: $border-weak;
+}
+
+h1, h2, h3, h4, h5, h6 {
+     font-size: 1em;
+}
+
+// These follow the formula 1 + n * (n + 1) * 1/30, which ensures that the
+// maximum font-size (i.e. h1) is 2.0em. The triangular pattern was based off
+// of the pattern of HTML4.
+
+h1 {
+     font-size: 2.0em;
+}
+
+h2 {
+     font-size: 1.666em;
+}
+
+h3 {
+     font-size: 1.4em;
+}
+
+h4 {
+     font-size: 1.2em;
+}
+
+h5 {
+     font-size: 1.066em;
+}
+
+h6 {
+     font-size: 1em;
+}
+
+iframe {
+}
+
+img, video {
+     max-height: 100vh;
+     max-width: 100%;
+}
+
+img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+object {
+     width: 100%;
+}
+
+ol, ul {
+     padding-left: $list-padding-left;
+}
+
+table.docutils:not(.footnote):not(.field-list):not(.citation) {
+     @extend .table;
+     @extend .table-striped;
+     border-color: rgba(0, 0, 0, 0.1);
+
+     thead > tr > th{
+          border-bottom: none;
+     }
+}
+
+
+table.docinfo {
+    margin: 1em 0em;
+}
+
+td, th {
+    padding: 0 0.5em;
+}
+
+th {
+     white-space: nowrap;
+}
+
+.abstract > .first {
+     font-weight: bolder;
+     text-align: center;
+}
+
+.address, .contents, .literal-block {
+     @extend .panel;
+     border-radius: 0;
+     box-shadow: none;
+}
+
+/* Role for "dangerous" text.
+ *
+ * This should indicate to the reader that the text is considered dangerous in
+ * some way, but should otherwise not distract the reader (similar to emphasis).
+ *
+ * The following style has been taken from the "citation-needed-content" class
+ * on Wikipedia.
+ */
+.alert-danger {
+     background-color: #fff9f9;
+     border: 1px solid #ffdcdc;
+     color: darkslategray;
+}
+
+.caption {
+    font-size: $font-size-weak;
+    font-style: italic;
+}
+
+.contents {
+     display: table;
+     padding: ($list-padding-left / 4) ($list-padding-left / 2);
+
+     .topic-title {
+          font-weight: bolder;
+          margin-bottom: 0;
+          text-align: center;
+     }
+
+     > .auto-toc {
+          margin-bottom: 0;
+     }
+
+     a {
+          text-decoration: none;
+     }
+
+     ul {
+          list-style: none;
+          padding-left: ($list-padding-left / 2);
+     }
+
+     a:hover {
+          text-decoration: underline;
+     }
+}
+
+.document {
+     @extend .container;
+     max-width: 50%;
+     max-width: 75%;
+     padding: 0;
+     word-break: break-word;
+     // TODO: This is stupid, don't do this
+     // margin-left: $document-margin-left;
+}
+
+.figure {
+     box-shadow: none;
+     clear: both;
+     float: right;
+     font-size: $caption-font-size;
+     padding: 0.2em;
+     position: relative;
+     text-align: center;
+
+     // based on 700px
+     // This shift of 50% and max width of 75% ensures we can only clobber 25%
+     // of a line.
+     margin-bottom: 10px;
+     margin-left: 30px;
+     margin-right: $figure-margin-horizontal;
+     margin-top: 10px;
+     max-width: 66%;
+
+     margin-right: 0;
+     max-width: 44%;
+}
+
+.citation-reference, .footnote-reference {
+     color: $color-foreground-weak;
+     font-size: small;
+     line-height: 1;
+     // Note: To use a citation, one *must* put a space between it and the last
+     // character of the line being cited, e.g. ``... Core.[1]_`` is invalid but
+     // "... Core. [1]_" is. We move the footnote one space left to correct the
+     // extra space.
+     margin-left: -$width-space;
+     text-decoration: none;
+     vertical-align: top;
+}
+
+.footer {
+     @extend small;
+     bottom: 0;
+     opacity: 0.5;
+     position: fixed;
+     right: 0;
+}
+
+.formula {
+     text-align: center;
+}
+
+.hit {
+     display: inline-block;
+     width: 100%;
+
+     > div {
+          display: inline-block;
+          width: 100%;
+     }
+
+     h2 {
+          margin-bottom: 0;
+     }
+
+     p {
+          margin: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 100%;
+     }
+}
+
+.hit-meta {
+     color: $color-foreground-weakest;
+     font-size: $font-size-weak;
+}
+
+.hits {
+     list-style: none;
+     padding: 0;
+}
+
+.label {
+     color: inherit;
+}
+
+.legend {
+     font-size: $font-size-weak;
+     padding: 3px;
+     text-align: left;
+}
+
+.literal {
+     color: $color-foreground-weak;
+     font-size: 0.7em; // Identical to font-size in literal blocks
+}
+
+.literal-block {
+     // Don't wrap literal code; scroll instead. Otherwise long text becomes
+     // unreadable. TODO: It's unclear how strong this rationale is.
+     word-wrap: normal;
+}
+
+.literal, .literal-block {
+     font-family: Consolas, Menlo, monospace;
+}
+
+.note {
+     background-color: #f9f9ff;
+     border: 1px solid #d9edf7;
+     color: darkslategray;
+     padding: 0.525em; // The same as pre
+}
+
+.section {
+     clear: both;
+}
+
+.subtitle {
+     margin-top: 0;
+}
+
+.title {
+    margin-bottom: 0.5em;
+}
+
+.toc-backref {
+    color: inherit;
+}
+
+.tt-dropdown-menu {
+     width: 100%;
+     background-color: $color-background;
+     border: $border-weak;
+     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+     padding: 6px 12px;
+}
+
+.tt-hint {
+     color: $color-foreground-weakest;
+     font-size: $tt-font-size;
+     height: 27px;
+}
+
+.form-control {
+     border: $border-strong;
+     border-radius: 0;
+     font-size: $tt-font-size;
+     height: 27px;
+
+     &:focus {
+          border-color: $color-foreground;
+          box-shadow: none;
+          outline: none;
+     }
+}
+
+.tt-suggestion {
+     font-size: $tt-font-size;
+}
+
+// Do not apply any padding-top to this element
+.twitter-typeahead {
+     padding-bottom: 2px;
+     width: 100%;
+}
+
+.panel {
+     color: $color-foreground-weak;
+}
+
+.problematic {
+     color: #a55858;
+}
+
+.admonition-title {
+     font-weight: bolder;
+}
+
+.warning {
+     background-color: #fff9f9;
+     border: 1px solid #ffdcdc;
+     color: darkslategray;
+     padding: 0.525em; // The same as pre
+}
+
+.backlinks-container {
+    padding: 2em;
+}
+
+.backlinks-container, .document {
+    height: 100vh;
+    overflow: scroll;
+}
+
+.suggestion {
+    background: white;
+    border: $border-strong;
+    padding: 1em;
+}
+
+#searchform {
+     left: 0;
+     position: absolute;
+     top: 210px;
+     width: 100%;
+
+     .controls {
+          padding: 0 20%;
+     }
+
+     h1 {
+          border: none;
+          text-align: center;
+     }
+}
